@@ -100,4 +100,16 @@ SELECT
     ) AS row_num
 FROM
     layoffs;
-DROP TABLE layoffs_clean;
+SELECT *
+FROM layoffs_clean
+WHERE row_num > 1;
+--
+DELETE FROM
+    layoffs_clean
+WHERE
+    row_num > 1;
+--
+SELECT *
+FROM layoffs_clean;
+--
+-- Standardizing data
