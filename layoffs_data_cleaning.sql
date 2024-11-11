@@ -114,38 +114,44 @@ SELECT
 	*
 FROM
 	layoffs_clean;
--- Check distinct companies
+--
+-- Check different companies
 SELECT
 	DISTINCT company
 FROM
-	layoffs_clean;
+	layoffs_clean
+ORDER BY 1;
 -- Trim companies with white spaces. Re-run last query to confirm changes
 UPDATE layoffs_clean
 SET company = TRIM(company);
 --
---
+-- Check different industries
 SELECT
 	DISTINCT industry
 FROM
 	layoffs_clean
 ORDER BY 1;
---
-UPDATE layoffs_clean
-SET industry = 'Crypto'
-WHERE industry LIKE 'Crypto%';
---
+-- Check industies like Crypto
 SELECT
-	*
+    *
 FROM
-	layoffs_clean
+    layoffs_clean
 WHERE
-	industry LIKE 'Crypto';
+    industry LIKE 'Crypto%';
+-- Update Crypto industries
+UPDATE
+    layoffs_clean
+SET
+    industry = 'Crypto'
+WHERE
+    industry LIKE 'Crypto%';
 --
+-- Check different countries
 SELECT
-	DISTINCT industry
+	DISTINCT country
 FROM
 	layoffs_clean
 ORDER BY 1;
-	
+
 	
 	
