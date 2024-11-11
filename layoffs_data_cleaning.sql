@@ -95,66 +95,21 @@ SELECT
     ) AS dub_row_num
 FROM
     layoffs_copy;
+-- Preview duplicates
 SELECT 
     *
 FROM
     layoffs_clean
 WHERE
     dub_row_num > 1;
-SELECT 
-    COUNT(*)
-FROM
-    layoffs_clean;
---
-DROP TABLE layoffs_clean;
-
-
-
-
-
-
-
-
-
-WITH COUNT_ROW AS (
-        SELECT
-            *,
-            COUNT(*) NUM_DUBLICATE
-        FROM
-            layoffs
-        GROUP BY
-            `company`,
-            `location`,
-            `industry`,
-            `total_laid_off`,
-            `percentage_laid_off`,
-            `date`,
-            `stage`,
-            `country`,
-            `funds_raised_millions`
-    )
-SELECT
-    COUNT(*)
-FROM
-    COUNT_ROW;
-SELECT 
-    COUNT(*)
-FROM
-    layoffs;
-    
-
-SELECT 
-    *
-FROM
-    layoffs_clean;
---
-
+-- Delete duplicates and re-run code-line 99-104 above to confirm changes
 DELETE FROM layoffs_clean 
 WHERE
-    row_num > 1;
-SELECT 
-    *
-FROM
-    layoffs_clean;
+    dub_row_num > 1;
 --
-    -- Standardizing data
+--
+-- Data Standardisation
+SELECT
+	*
+FROM
+	layoffs_clean;
