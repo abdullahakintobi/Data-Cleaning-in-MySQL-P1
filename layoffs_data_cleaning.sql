@@ -63,7 +63,7 @@ WHERE
 	dub_row_num > 1;
 --
 --
--- Data Cleaning
+-- -- Data Cleaning --
 -- Create new table to remove duplicates
 CREATE TABLE `layoffs_clean` (
     `company` TEXT,
@@ -109,7 +109,43 @@ WHERE
 --
 --
 -- Data Standardisation
+-- Preview Data
 SELECT
 	*
 FROM
 	layoffs_clean;
+-- Check distinct companies
+SELECT
+	DISTINCT company
+FROM
+	layoffs_clean;
+-- Trim companies with white spaces. Re-run last query to confirm changes
+UPDATE layoffs_clean
+SET company = TRIM(company);
+--
+--
+SELECT
+	DISTINCT industry
+FROM
+	layoffs_clean
+ORDER BY 1;
+--
+UPDATE layoffs_clean
+SET industry = 'Crypto'
+WHERE industry LIKE 'Crypto%';
+--
+SELECT
+	*
+FROM
+	layoffs_clean
+WHERE
+	industry LIKE 'Crypto';
+--
+SELECT
+	DISTINCT industry
+FROM
+	layoffs_clean
+ORDER BY 1;
+	
+	
+	
