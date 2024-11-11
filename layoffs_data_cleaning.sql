@@ -184,14 +184,16 @@ UPDATE layoffs_clean
 SET industry = NULL
 WHERE industry = '';
 --
-SELECT *
-FROM layoffs_clean AS t1
-JOIN layoffs_clean AS t2
-	ON t1.company = t2.company
-	  AND t1.location = t2.location
+--
+SELECT
+    *
+FROM
+    layoffs_clean AS t1
+    INNER JOIN layoffs_clean AS t2 ON t1.company = t2.company
+    AND t1.location = t2.location
 WHERE
-	t1.industry IS NULL
-  	AND t2.industry IS NOT NULL;
+    t1.industry IS NULL
+    AND t2.industry IS NOT NULL;
   	
 
   	
