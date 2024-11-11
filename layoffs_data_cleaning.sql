@@ -21,28 +21,24 @@ SELECT
     *
 FROM
     layoffs_raw;
+--
+--
+-- Data Exploration
+-- Preview 10 samples from 'layoffs' table
 SELECT 
     *
 FROM
     layoffs
 ORDER BY RAND()
 LIMIT 10;
+--
+-- Count the number of rows in the table
 SELECT 
-    COUNT(*)
-FROM
-    layoffs_raw;
-INSERT
-    layoffs_raw
-SELECT
-    *
+    COUNT(*) AS row_num
 FROM
     layoffs;
-SELECT 
-    *, COUNT(*) AS duplicate_count
-FROM
-    layoffs
-GROUP BY company
-HAVING COUNT(*) > 1;
+-- Check for Duplicates
+
 WITH dublicate_count AS (
         SELECT
             *,
