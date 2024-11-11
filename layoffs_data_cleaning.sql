@@ -8,10 +8,10 @@
 CREATE DATABASE world_layoffs;
 -- Data Archiving
 -- Create a dublicate of the dataset as a backup dataset
-CREATE TABLE layoffs_raw LIKE layoffs;
+CREATE TABLE layoffs_copy LIKE layoffs;
 -- Populate the new backup table 'layoffs_raw' with data from 'layoffs' table
 INSERT
-    layoffs_raw
+    layoffs_copy
 SELECT
     *
 FROM
@@ -20,7 +20,7 @@ FROM
 SELECT 
     *
 FROM
-    layoffs_raw;
+    layoffs_copy;
 --
 --
 -- Data Exploration
@@ -28,7 +28,7 @@ FROM
 SELECT 
     *
 FROM
-    layoffs
+    layoffs_copy
 ORDER BY RAND()
 LIMIT 10;
 --
@@ -36,30 +36,31 @@ LIMIT 10;
 SELECT 
     COUNT(*) AS row_num
 FROM
-    layoffs;
+    layoffs_copy;
 -- Check for Duplicates
-
-WITH dublicate_count AS (
-        SELECT
-            *,
-            ROW_NUMBER() OVER (
-                PARTITION BY `company`,
-                `location`,
-                `industry`,
-                `total_laid_off`,
-                `percentage_laid_off`,
-                `date`,
-                `stage`,
-                `country`,
-                `funds_raised_millions`
-            ) AS NUM_DUBLICATE
-        FROM
-            layoffs
-    )
+WITH dublicate AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (
+            PARTITION BY `company`,
+            `location`,
+            `industry`,
+            `total_laid_off`,
+            `percentage_laid_off`,
+            `date`,
+            `stage`,
+            `country`,
+            `funds_raised_millions`
+        ) AS dub_row_num
+    FROM
+        layoffs
+)
 SELECT
-    COUNT(*)
+    *
 FROM
-    dublicate_count;
+    dublicate
+WHERE
+	dub_row_num > 1;
 WITH COUNT_ROW AS (
         SELECT
             *,
