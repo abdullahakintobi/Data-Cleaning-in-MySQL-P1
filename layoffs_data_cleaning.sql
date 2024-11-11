@@ -171,9 +171,35 @@ SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
 -- Convert the date column to a DATE datatype
 ALTER TABLE layoffs_clean
 MODIFY COLUMN `date` DATE;
+--
+--
+-- Check where industry is empty or NULL
+SELECT *
+FROM layoffs_clean
+WHERE 
+	industry IS NULL
+	  OR industry = '';
+--
+UPDATE layoffs_clean
+SET industry = NULL
+WHERE industry = '';
+--
+SELECT *
+FROM layoffs_clean AS t1
+JOIN layoffs_clean AS t2
+	ON t1.company = t2.company
+	  AND t1.location = t2.location
+WHERE
+	t1.industry IS NULL
+  	AND t2.industry IS NOT NULL;
+  	
 
-
-
+  	
+SELECT *
+FROM layoffs_clean
+WHERE
+	`company` = 'Carvana'
+	  AND `location` = 'Phoenix';
 
 
 
