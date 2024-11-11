@@ -37,7 +37,7 @@ SELECT
     COUNT(*) AS row_num
 FROM
     layoffs_copy;
--- Check for Duplicates
+-- Check for Duplicates using 'ROW_NUMBER()' window function
 WITH dublicate AS (
     SELECT
         *,
@@ -53,7 +53,7 @@ WITH dublicate AS (
             `funds_raised_millions`
         ) AS dub_row_num
     FROM
-        layoffs
+        layoffs_copy
 )
 SELECT
     *
@@ -61,6 +61,61 @@ FROM
     dublicate
 WHERE
 	dub_row_num > 1;
+--
+--
+-- Data Cleaning
+-- Create new table to remove duplicates
+CREATE TABLE `layoffs_clean` (
+    `company` TEXT,
+    `location` TEXT,
+    `industry` TEXT,
+    `total_laid_off` INT DEFAULT NULL,
+    `percentage_laid_off` FLOAT DEFAULT NULL,
+    `date` TEXT,
+    `stage` TEXT,
+    `country` TEXT,
+    `funds_raised_millions` INT DEFAULT NULL,
+    `dub_row_num` INT
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
+-- Populate the new table with data from 'layoffs_copy' and row number to identify duplicates
+INSERT INTO
+    layoffs_clean
+SELECT
+    *,
+    ROW_NUMBER() OVER (
+        PARTITION BY `company`,
+        `location`,
+        `industry`,
+        `total_laid_off`,
+        `percentage_laid_off`,
+        `date`,
+        `stage`,
+        `country`,
+        `funds_raised_millions`
+    ) AS dub_row_num
+FROM
+    layoffs_copy;
+SELECT 
+    *
+FROM
+    layoffs_clean
+WHERE
+    dub_row_num > 1;
+SELECT 
+    COUNT(*)
+FROM
+    layoffs_clean;
+--
+DROP TABLE layoffs_clean;
+
+
+
+
+
+
+
+
+
 WITH COUNT_ROW AS (
         SELECT
             *,
@@ -86,46 +141,14 @@ SELECT
     COUNT(*)
 FROM
     layoffs;
-CREATE TABLE `layoffs_clean` (
-    `company` TEXT,
-    `location` TEXT,
-    `industry` TEXT,
-    `total_laid_off` INT DEFAULT NULL,
-    `percentage_laid_off` FLOAT DEFAULT NULL,
-    `date` TEXT,
-    `stage` TEXT,
-    `country` TEXT,
-    `funds_raised_millions` INT DEFAULT NULL,
-    `row_num` INT
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
+    
+
 SELECT 
     *
 FROM
     layoffs_clean;
 --
-INSERT INTO
-    layoffs_clean
-SELECT
-    *,
-    ROW_NUMBER() OVER (
-        PARTITION BY `company`,
-        `location`,
-        `industry`,
-        `total_laid_off`,
-        `percentage_laid_off`,
-        `date`,
-        `stage`,
-        `country`,
-        `funds_raised_millions`
-    ) AS row_num
-FROM
-    layoffs;
-SELECT 
-    *
-FROM
-    layoffs_clean
-WHERE
-    row_num > 1;
+
 DELETE FROM layoffs_clean 
 WHERE
     row_num > 1;
