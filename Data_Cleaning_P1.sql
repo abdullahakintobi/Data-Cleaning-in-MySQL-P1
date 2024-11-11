@@ -1,10 +1,14 @@
+-- Project Title: Layoffs Data Cleaning in MySQL
+-- By: Abdullah Akintobi
+-- Published On: October 30, 2024
+
 SELECT *
 FROM layoffs;
 
 CREATE TABLE layoffs_raw
 LIKE layoffs;
 
-SELECT *
+SELECT COUNT(*)
 FROM layoffs_raw;
 
 INSERT layoffs_raw
