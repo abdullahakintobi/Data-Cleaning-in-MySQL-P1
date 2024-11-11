@@ -106,6 +106,9 @@ WHERE
 DELETE FROM layoffs_clean 
 WHERE
     dub_row_num > 1;
+-- Delete 'dub_row_num' column as it's not useful anymore
+ALTER TABLE layoffs_clean
+DROP COLUMN dub_row_num;
 --
 --
 -- Data Standardisation
@@ -152,6 +155,35 @@ SELECT
 FROM
 	layoffs_clean
 ORDER BY 1;
+-- Correct the error in the country column
+UPDATE layoffs_clean
+SET country = TRIM(TRAILING '.' FROM country)
+WHERE country LIKE 'United States%';
+--
+-- Check the date column
+SELECT
+	DISTINCT(`date`)
+FROM
+	layoffs_clean;
+-- Convert the date column to a date format
+UPDATE layoffs_clean
+SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
+-- Convert the date column to a DATE datatype
+ALTER TABLE layoffs_clean
+MODIFY COLUMN `date` DATE;
 
+
+
+
+
+
+
+
+--
+SELECT
+	*
+FROM
+	layoffs_clean
+LIMIT 10;
 	
 	
