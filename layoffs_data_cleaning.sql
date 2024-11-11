@@ -186,7 +186,8 @@ WHERE industry = '';
 --
 --
 SELECT
-    *
+    t1.industry,
+    t2.industry
 FROM
     layoffs_clean AS t1
     INNER JOIN layoffs_clean AS t2 ON t1.company = t2.company
@@ -194,14 +195,22 @@ FROM
 WHERE
     t1.industry IS NULL
     AND t2.industry IS NOT NULL;
+--
+UPDATE
+    layoffs_clean AS t1
+    INNER JOIN layoffs_clean AS t2 ON t1.company = t2.company
+    AND t1.location = t2.location
+SET
+    t1.industry = t2.industry
+WHERE
+    t1.industry IS NULL
+    AND t2.industry IS NOT NULL;
   	
-
   	
 SELECT *
 FROM layoffs_clean
 WHERE
-	`company` = 'Carvana'
-	  AND `location` = 'Phoenix';
+	industry IS NULL;
 
 
 
