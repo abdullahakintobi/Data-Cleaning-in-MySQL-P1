@@ -2,14 +2,14 @@
 
 **Author**: Abdullah Akintobi  
 **DBMS**: MySQL  
-**Date Published**: November 11, 2024
+**Date Published**: November 12, 2024
 
 
 ## Project Overview
 
 This project involves using MySQL to clean and standardize data in a layoffs dataset. Key processes include **Data Modeling**, **Data Exploration**, **Data Cleaning**, and **Data Standardization**. The goal is to create a clean, standardized dataset that is free of duplicates, inconsistencies, and null values to enable accurate analysis of layoffs data.
 
---
+---
 
 ## 1. Data Modeling
 
@@ -170,6 +170,7 @@ This project involves using MySQL to clean and standardize data in a layoffs dat
     AND percentage_laid_off IS NULL;
     ```
 
+---
 
 ## Summary Insights
 
@@ -184,7 +185,6 @@ The data cleaning process revealed and addressed several key issues:
 ## Conclusion
 
 This project demonstrates a systematic approach to data cleaning in MySQL, implementing various techniques to ensure data quality and consistency. The cleaned dataset is now properly structured for further analysis, with standardized formats and reduced NULL values. The modular SQL queries provide a reusable framework for similar data cleaning tasks.
-
 
 ## About this project
 
