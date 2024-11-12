@@ -1,6 +1,6 @@
 -- Project Title: Layoffs Data Cleaning in MySQL
 -- By: Abdullah Akintobi
--- Published On: November 11, 2024
+-- Published On: November 12, 2024
 
 -- -------------------------------------------------------
 -- Data Modeling
