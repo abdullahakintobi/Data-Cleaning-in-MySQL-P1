@@ -15,7 +15,7 @@ This project uses MySQL to clean and standardize data in a `layoffs` dataset. Ke
 
 ### Database and Table Creation
 
-I. **Database**: Created a dedicated database called `world_layoffs`.
+1. **Database**: Created a dedicated database called `world_layoffs`.
    ```sql
    CREATE DATABASE world_layoffs;
    ```
@@ -43,7 +43,7 @@ I. **Database**: Created a dedicated database called `world_layoffs`.
     `funds_raised_millions` INT DEFAULT NULL
    );
    ```
-II. **Data Archiving**: Backed up the original dataset to ensure data preservation before any transformations.
+2. **Data Archiving**: Backed up the original dataset to ensure data preservation before any transformations.
    ```sql
    CREATE TABLE layoffs_copy LIKE layoffs;
 
@@ -57,19 +57,19 @@ II. **Data Archiving**: Backed up the original dataset to ensure data preservati
 
 ### Basic Data Insights
 
-I. **Preview Random Samples**: Selected 10 random rows to understand the data layout.
+1. **Preview Random Samples**: Selected 10 random rows to understand the data layout.
     ```sql
     SELECT *
     FROM layoffs_copy
     ORDER BY RAND()
     LIMIT 10;
     ```
-II. **Row Count**: Verified the total number of rows.
+2. **Row Count**: Verified the total number of rows.
     ```sql
     SELECT COUNT(*) AS row_num
     FROM layoffs_copy;
     ```
-III. **Duplicate Check**: Used a window function to identify duplicate rows based on key fields.
+3. **Duplicate Check**: Used a window function to identify duplicate rows based on key fields.
     ```sql
     WITH duplicate AS (
         SELECT *,
