@@ -164,7 +164,8 @@ SET t1.industry = t2.industry
 WHERE t1.industry IS NULL
   AND t2.industry IS NOT NULL;
 
--- Confirm remaining NULL industry values
+-- Check remaining NULL values in the industry column. 
+-- Note: "Bally's Interactive" company still have NULL values due to a lack of matching records in the dataset to determine its industry.
 SELECT *
 FROM layoffs_clean
 WHERE industry IS NULL;
