@@ -7,7 +7,7 @@
 
 ## Project Overview
 
-This project involves using MySQL to clean and standardize data in a layoffs dataset. Key processes include **Data Modeling**, **Data Exploration**, **Data Cleaning**, and **Data Standardization**. The goal is to create a clean, standardized dataset that is free of duplicates, inconsistencies, and null values to enable accurate analysis of layoffs data.
+This project uses MySQL to clean and standardize data in a `layoffs` dataset. Key processes include Data Modeling, Exploration, Data Cleaning, and Data Standardization. The goal is to create a clean, standardized dataset that is free of duplicates, inconsistencies, and null values to enable accurate analysis of `layoffs` data
 
 ---
 
