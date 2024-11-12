@@ -29,6 +29,7 @@ This project uses MySQL to clean and standardize data in a `layoffs` dataset. Ke
   - `stage`: Company stage
   - `country`: Country of operation
   - `funds_raised_millions`: Funds raised in millions
+  
 - **Column Data Types**: Data types of each column upon import
    ```sql
    CREATE TABLE layoffs (
