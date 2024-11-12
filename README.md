@@ -14,7 +14,7 @@ This project involves using MySQL to clean and standardize data in a layoffs dat
 
 ### Database and Table Creation
 
-- **Database**: Created a dedicated database called `world_layoffs`.
+1. **Database**: Created a dedicated database called `world_layoffs`.
    ```sql
    CREATE DATABASE world_layoffs;
    ```
@@ -42,7 +42,7 @@ This project involves using MySQL to clean and standardize data in a layoffs dat
     `funds_raised_millions` INT DEFAULT NULL
    );
    ```
-- **Data Archiving**: Backed up the original dataset to ensure data preservation before any transformations.
+2. **Data Archiving**: Backed up the original dataset to ensure data preservation before any transformations.
    ```sql
    CREATE TABLE layoffs_copy LIKE layoffs;
 
